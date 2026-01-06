@@ -11,7 +11,7 @@ const mockStockData = {
     'TSLA': { price: 238.45, change: -1.92, name: 'Tesla Inc.' },
 };
 
-export const fetchCryptoData = async (ids = ['bitcoin', 'ethereum', 'cardano', 'solana', 'polkadot']) => {
+export const fetchCryptoData = async (ids = ['bitcoin', 'ethereum', 'hype', 'solana', 'binance coin', 'tron', 'dogecoin", 'aave', 'pump']) => {
     try {
         const response = await fetch(
             `${COINGECKO_API}/coins/markets?vs_currency=usd&ids=${ids.join(',')}&order=market_cap_desc&sparkline=true&price_change_percentage=24h,7d`
@@ -78,11 +78,43 @@ export const convertCurrency = (amount, fromRate, toRate) => {
     return (amount * toRate) / fromRate;
 };
 
-// Currency rates (mock - in production use a real forex API)
-export const currencyRates = {
-    USD: 1,
-    EUR: 0.92,
-    GBP: 0.79,
-    JPY: 148.50,
-    CAD: 1.35,
+// Fetch real-time currency exchange rates
+export const fetchCurrencyRates = async () => {
+    try {
+        const response = await fetch('https://api.exchangerate.host/latest?base=USD');
+        
+        if (!response.ok) throw new Error('Failed to fetch currency rates');
+        
+        const data = await response.json();
+        
+        // Return rates with USD as base (1.0)
+        return {
+            USD: 1,
+            EUR: data.rates.EUR || 0.92,
+            GBP: data.rates.GBP || 0.79,
+            JPY: data.rates.JPY || 148.50,
+            CAD: data.rates.CAD || 1.35,
+            CHF: data.rates.CHF || 0.88,
+            AUD: data.rates.AUD || 1.52,
+            CNY: data.rates.CNY || 7.24,
+        };
+    } catch (error) {
+        console.error('Error fetching currency rates:', error);
+        // Fallback to static rates if API fails
+        return {
+            USD: 1,
+            EUR: 0.92,
+            GBP: 0.79,
+            JPY: 148.50,
+            CAD: 1.35,
+            CHF: 0.88,
+            AUD: 1.52,
+            CNY: 7.24,
+        };
+    }
 };
+
+export const convertCurrency = (amount, fromRate, toRate) => {
+    return (amount * toRate) / fromRate;
+};
+
