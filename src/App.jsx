@@ -171,7 +171,6 @@ function App() {
                 {/* Footer */}
                 <footer className="text-center text-slate-400 text-sm mt-12 pb-8">
                     <p>Built with React, Vite & Tailwind CSS • Data from CoinGecko API</p>
-                    <p className="mt-2">🚀 Powered by Vibe Coding with Antigravity</p>
                 </footer>
             </div>
         </div>
