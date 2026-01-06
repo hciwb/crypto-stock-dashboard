@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white min-h-screen;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-slate-800/50 backdrop-blur-lg rounded-2xl p-6 border border-slate-700/50 shadow-xl;
+    transition: all 0.3s ease;
+  }
+  
+  .card:hover {
+    @apply border-primary-500/50 shadow-2xl shadow-primary-500/10;
+    transform: translateY(-2px);
+  }
+  
+  .stat-card {
+    @apply card flex flex-col gap-2;
+  }
+  
+  .btn-primary {
+    @apply bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg shadow-primary-500/30;
+  }
+  
+  .btn-primary:hover {
+    @apply shadow-xl shadow-primary-500/50;
+    transform: translateY(-1px);
+  }
+  
+  .price-up {
+    @apply text-success;
+  }
+  
+  .price-down {
+    @apply text-danger;
+  }
+  
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+  
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+  
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+}
